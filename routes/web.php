@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('WebsitePage.TableView');
+// });
+
+// Route::get('/Tambah', function () {
+//     return view('WebsitePage.TambahData');
+// });
+
+Route::resource('/table',ItemController::class);
+// Route::get('tambahdata', [ItemController::class, 'create'])->name('tambahdata');
