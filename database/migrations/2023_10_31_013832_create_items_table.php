@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('item', function (Blueprint $table) {
             $table->string('nama_item');
             $table->unique('nama_item');
-            $table->decimal('harga_item');
+            $table->integer('harga_item');
         });
     }
 

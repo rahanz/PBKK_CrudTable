@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ItemController extends Controller
 {
@@ -12,7 +13,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return view('web_page.TableView');
+        $data = Item::orderBy('nama_item','asc')->paginate(5);
+        return view('web_page.TableView')->with('database',$data);
     }
 
     /**
@@ -28,12 +30,26 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        Session::flash('nama_item',$request->nama_item);
+        Session::flash('harga_item',$request->harga_item);
+
+        $request->validate
+        ([
+            'nama_item'=>'required|unique:item,nama_item',
+            'harga_item'=>'required|integer:item,harga_item',
+        ],
+        [
+            'nama_item.required'=>'Nama Item Wajib di isi',
+            'nama_item.unique'=>'Nama Item sudah ada dalam database',
+            'harga_item.required'=>'Harga Item Wajib di isi',
+            'harga_item.integral'=>'Harga Item harus bernilai angka',
+        ]);
         $data = [
             'nama_item'=>$request->nama_item,
             'harga_item'=>$request->harga_item,
         ];
         Item::create($data);
-        return 'HI';
+        return redirect()->to('table')->with('success','Berhasil menambahkan data');
     }
 
     /**
@@ -49,7 +65,8 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Item::where('nama_item',$id)->first();
+        return view('web_page.edit')->with('database', $data);
     }
 
     /**
@@ -57,7 +74,22 @@ class ItemController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate
+        ([
+            'nama_item'=>'required',
+            'harga_item'=>'required|integer:item,harga_item',
+        ],
+        [
+            'nama_item.required'=>'Nama Item Wajib di isi',
+            'harga_item.required'=>'Harga Item Wajib di isi',
+            'harga_item.integral'=>'Harga Item harus bernilai angka',
+        ]);
+        $data = [
+            'nama_item'=>$request->nama_item,
+            'harga_item'=>$request->harga_item,
+        ];
+        Item::where('nama_item', $id)->update($data);
+        return redirect()->to('mahasiwa')->with('success','Berhasil mengubah data');
     }
 
     /**
