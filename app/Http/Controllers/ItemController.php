@@ -77,7 +77,7 @@ class ItemController extends Controller
         $request->validate
         ([
             'nama_item'=>'required',
-            'harga_item'=>'required|integer:item,harga_item',
+            'harga_item'=>'required:item,harga_item',
         ],
         [
             'nama_item.required'=>'Nama Item Wajib di isi',
@@ -89,7 +89,7 @@ class ItemController extends Controller
             'harga_item'=>$request->harga_item,
         ];
         Item::where('nama_item', $id)->update($data);
-        return redirect()->to('mahasiwa')->with('success','Berhasil mengubah data');
+        return redirect()->to('table')->with('success','Berhasil mengubah data');
     }
 
     /**
@@ -97,6 +97,7 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Item::where('nama_item',$id)->delete();
+        return redirect()->to('table')->with('success', 'Berhasil melakukan delete data');
     }
 }
