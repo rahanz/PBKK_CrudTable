@@ -25,7 +25,11 @@
                     <td>Rp. {{ number_format($item->harga_item) }},00</td>
                     <td>
                         <a href="{{ url('table/'.$item->nama_item.'/edit') }}" class="btn btn-warning btn-sm" onclick="editItem(1)">Edit</a>
-                        <a class="btn btn-danger btn-sm" onclick="deleteItem(1)">Delete</a>
+                        <form onsubmit="return confirm('yakin akan menghapus data?')" class="d-inline" action="{{ url('table/'.$item->nama_item) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" name="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 <?php $i++ ?>

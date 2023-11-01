@@ -10,10 +10,10 @@
     <h2>Tambah Item Game</h2>
     <form action='{{ url('table/'.$database->nama_item) }}' method="POST">
         @csrf
-        @method('put')
+        @method('PUT')
         <div class="mb-3">
             <label for="namaItem" class="form-label">Nama Item</label>
-            <input type="text" class="form-control" name="harga_item" value="{{ $database->nama_item }}" id="harga_item">
+            <input type="text" class="form-control" name="nama_item" value="{{ $database->nama_item }}" id="harga_item">
         </div>
         <div class="mb-3">
             <label for="harga" class="form-label">Harga</label>

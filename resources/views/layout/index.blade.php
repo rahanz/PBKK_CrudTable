@@ -122,13 +122,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="./index.html" class="nav-link active">
+                                    <a href="{{ Route('table.index') }}" class="nav-link {{ Route::is('table.index') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Data Table</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="./index2.html" class="nav-link">
+                                    <a href="{{ Route('table.create') }}" class="nav-link {{ Route::is('table.create') ? 'active' : '' }}">
                                       <i class="far fa-circle nav-icon"></i>
                                       <p>Penambahan Data</p>
                                     </a>
@@ -166,7 +166,6 @@
             <section class="content">
                 <div class="container-fluid">
                     @include('component.message')
-
                     @yield('TableContent')
                     @yield('TambahData')
                 </div><!-- /.container-fluid -->
